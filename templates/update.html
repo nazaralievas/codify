@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content">
+    <div class="form">
+        <form action="/update/{{ course.id }}" method="POST">
+            <input type="text" name="title" id="content" value="{{ course.title }}">
+            <input type="text" name="mentor" id="content" value="{{ course.mentor }}">
+            <input type="text" name="description" id="content" value="{{ course.description }}">
+            <input type="submit" value="Сохранить">
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

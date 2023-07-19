@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <form action="/order/{{course.id}}" method="POST">
+        <input type="text" name="full_name" id="content" placeholder="Ф.И.О.">
+        <input type="text" name="phone" id="content" placeholder="Номер телефона...">
+        <input type="text" name="email" id="content" placeholder="e-mail...">
+        <input type="submit" value="Записаться">
+    </form>
+</div>
+
+{% endblock content %}

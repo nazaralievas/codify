@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Страница регистрации</h3>
+
+<form action="/register" method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.username }}
+    {{ form.password }}
+    {{ form.submit }}
+</form>
+
+<p>Уже зарегистрированы? <a href="/login">Войти</a></p>
+
+{% endblock content %}
