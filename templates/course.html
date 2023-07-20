@@ -1,31 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div>
     <h3>{{ course.title }}</h3>
-    <div>{{ course.mentor }}</div>
-    <div>{{ course.description }}</div>
+</div>
+<div>
+    <p>Ментор курса: {{ course.mentor }}</p>
+</div>
+<div>
+    <p>{{ course.description }}</p>
 </div>
 
 {% if not current_user.is_authenticated %}
     <button><a href="/order/{{course.id}}">Записаться</a></button>
 {% endif %}
-
+<br>
 <h4>Уже записались на пробный урок: </h4>
 <div>
     {% for order in course.orders %}
-        <ul>{{ order.full_name }}, 
-        {% if current_user.is_authenticated %}
-            {{ order.email }},  {{ order.phone }}
-        {% endif %}
-        </ul>
+        <ul>♥ {{ order.full_name }}</ul>
     {% endfor %}
 </div>
 
 {% if current_user.is_authenticated %}
+    <div class="content">
+        <table>
+            {% for order in course.orders %}
+            <tr>
+                <td>Курс: <a href="/course/{{ course.id }}">{{ course.title }}</a></td>
+                <td>Ментор: {{ course.mentor }}</td>
+                <td>Описание курса: {{ course.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
     <button><a href="/update/{{ course.id }}">Изменить</a></button>
     <button><a href="/delete/{{ course.id }}">Удалить</a></button>
 {% endif %}
-  
+
 {% endblock content %}

@@ -19,6 +19,7 @@ table {
 }
 
 th {
+    text-align: center;
     height: 30px;
 }
 
@@ -41,4 +42,14 @@ img {
     object-fit: cover;
 }
 
-  
+body {
+	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url('https://img1.goodfon.ru/wallpaper/nbig/f/25/vysokoe-kachestvo-horoshee.jpg');
+	color: #fff;
+	background-size: cover;
+	background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}

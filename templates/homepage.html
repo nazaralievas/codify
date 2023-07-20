@@ -2,16 +2,31 @@
 
 {% block content %}
 
-<div class="content">
-    <table>
-        {% for course in courses %}
-        <tr>
-            <td>Курс: <a href="/course/{{ course.id }}">{{ course.title }}</a></td>
-            <td>Ментор: {{ course.mentor }}</td>
-            <td>Описание курса: {{ course.description }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+
+<div class="row">
+    {% for course in courses %}
+        <div class="box col-lg-5">
+            <h3><a href="/course/{{ course.id }}">{{ course.title }}</a></h3>
+            <span>Ментор курса: <strong>{{ course.mentor }}</strong></span>
+            <p>{{ course.description[:100] }}...</p>
+        </div>
+    {% endfor %}
 </div>
 
+<style>
+    .box {
+        /* Задаем цвет фона */
+        background-color: transparent;
+        /* Задаем цвет рамки */
+        border: 2px solid #ccc;
+        /* Задаем закругленные углы */
+        border-radius: 5px;
+        /* Задаем отступы внутри бокса */
+        padding: 30px;
+        margin: 50px;
+        /* Задаем шрифт и размер текста */
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+    }
+</style>
 {% endblock content %}

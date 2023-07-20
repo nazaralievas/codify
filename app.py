@@ -27,11 +27,11 @@ class Course(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     full_name = db.Column(db.String(200), nullable=False)
     phone = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(200), nullable=False)
-    course = db.relationship('Course', backref='orders')
+    course = db.relationship('Course', backref='orders', cascade='all')
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -98,8 +98,8 @@ def update(id):
     course = Course.query.get_or_404(id)
     if request.method == "POST":
        course.title = request.form['title']
-       course.text = request.form['mentor']
-       course.image = request.form['description']
+       course.mentor = request.form['mentor']
+       course.description = request.form['description']
        db.session.commit()
        return redirect('/')
     return render_template('update.html', course=course)
@@ -109,7 +109,7 @@ def update(id):
 def order(id):
     course = Course.query.get_or_404(id)
     if request.method == "POST":
-        full_name = request.form['full_name']
+        full_name = request.form['full_name'].title()
         phone = request.form['phone']
         email = request.form['email']
         order = Order(course_id=id, course=course, full_name=full_name, phone=phone, email=email)
@@ -126,7 +126,7 @@ def register():
         new_user = User(username=form.username.data, password=form.password.data)
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/login')
+        return redirect('/')
     return render_template('register.html', form=form)
 
 
@@ -137,7 +137,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user.password == form.password.data:
             login_user(user)
-            return redirect('/profile')
+            return redirect('/')
     return render_template('login.html', form=form)
 
 
@@ -146,12 +146,6 @@ def login():
 def logout():
     logout_user()
     return redirect('/')
-
-
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html')
 
 
 @login_manager.user_loader
